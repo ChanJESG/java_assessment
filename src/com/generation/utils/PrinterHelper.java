@@ -19,10 +19,11 @@ public class PrinterHelper
         System.out.println( "| . 1 Register Student          |" );
         System.out.println( "| . 2 Find Student              |" );
         System.out.println( "| . 3 Grade Student             |" );
-        System.out.println( "| . 4 Enroll Student to Course  |" );
-        System.out.println( "| . 5 Show Students Summary     |" );
-        System.out.println( "| . 6 Show Courses Summary      |" );
-        System.out.println( "| . 7 Exit                      |" );
+        System.out.println( "| . 4 Grade Student by Course   |" );
+        System.out.println( "| . 5 Enroll Student to Course  |" );
+        System.out.println( "| . 6 Show Students Summary     |" );
+        System.out.println( "| . 7 Show Courses Summary      |" );
+        System.out.println( "| . 8 Exit                      |" );
         System.out.println( "|-------------------------------|" );
     }
 
@@ -38,10 +39,17 @@ public class PrinterHelper
         String id = scanner.next();
         System.out.println( "| Enter student email:                |" );
         String email = scanner.next();
-        System.out.println( "| Enter student birth date(mm/dd/yyyy)|" );
-        DateFormat formatter = new SimpleDateFormat( "mm/dd/yyyy");
-        //TODO validate date format and catch exception to avoid crash
-        Date birthDate = formatter.parse( scanner.next());
+        System.out.println( "| Enter student birth date(MM/dd/yyyy)|" );
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Date birthDate = null;
+        do {
+            try {
+                birthDate = formatter.parse(scanner.next());
+            } catch (ParseException e) {
+                System.out.println("Enter a valid date in the format MM/dd/yyyy.");
+            }
+        } while (birthDate == null);
+
         System.out.println( "|-------------------------------------|" );
         Student student = new Student( id, name, email, birthDate );
         System.out.println( "Student Successfully Registered! " );
@@ -49,4 +57,15 @@ public class PrinterHelper
         return student;
     }
 
+    /*public static Student gradeStudentMenu (Scanner scanner) {
+        System.out.println("|-------------------------------------|");
+        System.out.println("|   Grade Student                     |");
+        System.out.println("|-------------------------------------|");
+        System.out.println("| Enter student's ID:                 |");
+        String id = scanner.next();
+        System.out.println("| Enter student's GPA:                |");
+        double average = scanner.nextDouble();
+        System.out.println("|-------------------------------------|");
+
+    }*/
 }

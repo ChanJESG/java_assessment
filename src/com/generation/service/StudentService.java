@@ -4,6 +4,7 @@ import com.generation.model.Course;
 import com.generation.model.Student;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StudentService
@@ -24,15 +25,33 @@ public class StudentService
         return null;
     }
 
+    public void gradeStudent (String studentId, double average) {
+        Student student = students.get(studentId);
+        student.setAverage(average);
+    }
+
+
     public boolean isSubscribed( String studentId )
     {
-        //TODO implement this method
         return students.containsKey(studentId);
     }
 
     public void showSummary()
     {
-        //TODO implement
+        System.out.println("Students' Courses");
+        for (String key: students.keySet()) {
+            Student student = students.get(key);
+            System.out.println("Student: " + student.toString());
+
+            System.out.println("The student's course list: ");
+            List<Course> courseList = student.getApprovedCourses();
+            if(courseList != null) {
+                for (Course c : courseList) {
+                    System.out.println(c.toString());
+                }
+            } else
+                System.out.println("No courses");
+        }
     }
 
     public void enrollToCourse( String studentId, Course course )
@@ -42,6 +61,5 @@ public class StudentService
             students.get( studentId ).enrollToCourse( course );
         }
     }
-
 
 }

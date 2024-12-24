@@ -56,11 +56,11 @@ public class CourseService
 
     public void enrollStudent( String courseId, Student student )
     {
-        if ( !enrolledStudents.containsKey( courseId ) )
+        if ( !enrolledStudents.containsKey( courseId ) )                                // if courseID is not found in enrollStudent
         {
-            enrolledStudents.put( courseId, new ArrayList<>() );
+            enrolledStudents.put( courseId, new ArrayList<>() );                        // put (add) the courseID to enrollStudents, and instantiate a new ArrayList
         }
-        enrolledStudents.get( courseId ).add( student );
+        enrolledStudents.get( courseId ).add( student );                                // then, we add the student to the ArrayList, after getting the courseID (do not put a new courseID and instantiate a new ArrayList if courseID is found)
     }
 
     public void showEnrolledStudents( String courseId )

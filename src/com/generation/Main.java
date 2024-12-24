@@ -7,6 +7,7 @@ import com.generation.service.StudentService;
 import com.generation.utils.PrinterHelper;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main
@@ -18,6 +19,10 @@ public class Main
         StudentService studentService = new StudentService();
         CourseService courseService = new CourseService();
         Scanner scanner = new Scanner( System.in );
+
+        // ! student used for testing, remove after finished
+        Student student = new Student("1", "John", "johndoe@gmail.com", new Date(15/10/2024));
+        studentService.subscribeStudent(student);
         int option = 0;
         do
         {
@@ -35,17 +40,21 @@ public class Main
                     gradeStudent( studentService, scanner );
                     break;
                 case 4:
-                    enrollStudentToCourse( studentService, courseService, scanner );
+                    gradeStudentCourse(studentService, scanner);
                     break;
                 case 5:
-                    showStudentsSummary( studentService, scanner );
+                    enrollStudentToCourse( studentService, courseService, scanner );
                     break;
                 case 6:
+                    showStudentsSummary( studentService, scanner );
+                    break;
+                case 7:
                     showCoursesSummary( courseService, scanner );
                     break;
+
             }
         }
-        while ( option != 7 );
+        while ( option != 8 );
     }
 
     private static void enrollStudentToCourse( StudentService studentService, CourseService courseService,
@@ -87,7 +96,47 @@ public class Main
 
     private static void gradeStudent( StudentService studentService, Scanner scanner )
     {
+        System.out.println("Enter student ID: ");
+        String studentId = scanner.next();
+        Student student = studentService.findStudent(studentId);
+        if (student != null) {
+            System.out.println("Enter student GPA: ");
+            double average = scanner.nextDouble();
+            studentService.gradeStudent(studentId, average);
+            System.out.println("Grade updated: ");
+            System.out.println(student);
 
+        } else {
+            System.out.println( "Student with Id = " + studentId + " not found" );
+        }
+
+    }
+
+    // using the gradedCourses HashMap (in Student class) to save courseCode and gpa
+    private static void gradeStudentCourse (StudentService studentService, Scanner scanner) {
+        System.out.println("Enter student ID");
+        String studentId = scanner.next();
+        Student student = studentService.findStudent(studentId);
+        if (student != null) {
+            System.out.println("Courses to grade: ");
+            student.printApprovedCourses();
+            System.out.println("Select course to grade: ");
+            String courseCode = scanner.next();
+            Course gradedCourse = student.findStudentCourseIndex(courseCode);
+            if (gradedCourse != null) {
+                System.out.println(gradedCourse);
+                System.out.println("Enter GPA: ");
+                double gpa = scanner.nextDouble();
+                student.gradeStudentCourse(courseCode, gpa);
+                System.out.println("GPA updated.");
+                student.calculateStudentAverage();
+                student.printGradedCourses();
+                System.out.println("The new GPA average is " + student.getAverage() + ".");
+            } else
+                System.out.println("Please enter a valid course code.");
+
+        } else
+            System.out.println("Student with Id = " + studentId + " not found" );
     }
 
     private static void findStudent( StudentService studentService, Scanner scanner )
