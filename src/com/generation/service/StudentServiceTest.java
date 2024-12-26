@@ -14,7 +14,6 @@ class StudentServiceTest {
         StudentService studentService;
 
         Student student1 = new Student("1", "John", "johndoe@gmail.com", new Date("15/10/2024"));
-        Student student2 = new Student("2", "Mary", "marysmith@gmail.com", new Date("10/10/1999"));
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {

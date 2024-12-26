@@ -28,8 +28,14 @@ public class Student
 
     public void enrollToCourse( Course course )
     {
-        courses.add(course);
-        approvedCourses.put(course.getCode(), course);
+        if(!courses.contains(course) || !approvedCourses.containsValue(course)) {
+            courses.add(course);
+            approvedCourses.put(course.getCode(), course);
+            System.out.println( "Student with ID: " + super.getId() + " enrolled successfully to " + course.getCode() );
+        }
+        else
+            System.out.println("Student is already registered to course.");
+
     }
 
     public void registerApprovedCourse( Course course )
@@ -67,16 +73,25 @@ public class Student
     }
 
     // CHALLENGE IMPLEMENTATION: Read README.md to find instructions on how to solve. 
-    public List<Course> findPassedCourses( Course course )
+    public List<Course> findPassedCourses(Course course)
     {
+
         //TODO implement this method
         return null;
+
     }
 
     public boolean isAttendingCourse( String courseCode )
     {
-        //TODO implement this method
-        return false;
+
+        for (Course course : courses) {
+
+            if(course.getCode().contains(courseCode))
+                return true;
+
+        }
+
+        return (approvedCourses.containsKey(courseCode));
     }
 
     @Override

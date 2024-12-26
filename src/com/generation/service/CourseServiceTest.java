@@ -26,7 +26,6 @@ class CourseServiceTest {
     Map<String, List<Student>> enrolledStudents = new HashMap<>();
 
     Course course1 = new Course( "INTRO-CS-1", "Introduction to Computer Science", 9, module);
-    Student student1 = new Student("1", "John", "johndoe@gmail.com", new Date("15/10/2024"));
 
     @BeforeEach
     void setUp() {

@@ -57,15 +57,5 @@ public class PrinterHelper
         return student;
     }
 
-    /*public static Student gradeStudentMenu (Scanner scanner) {
-        System.out.println("|-------------------------------------|");
-        System.out.println("|   Grade Student                     |");
-        System.out.println("|-------------------------------------|");
-        System.out.println("| Enter student's ID:                 |");
-        String id = scanner.next();
-        System.out.println("| Enter student's GPA:                |");
-        double average = scanner.nextDouble();
-        System.out.println("|-------------------------------------|");
 
-    }*/
 }
